@@ -1,5 +1,4 @@
-from ipaddress import collapse_addresses
-from unicodedata import combining
+
 
 
 class Game:
@@ -76,7 +75,26 @@ class Game:
                     return True
 
 
+    def printTab(self):
+
+        print("|", end="")
+        for f in range(0, len(self.board[0])):
+            print(f, end="|")
+        print("")
         
+      
+        for fila in self.board:
+            print('|', end='')
+            for valor in fila:
+                print(valor, end='')
+                print('|', end='')
+            print('') 
+        
+  
+        print('+', end='')
+        for x in range(1, len(self.board[0]) + 1):
+            print('-', end='+')
+        print('')   
     
 
 

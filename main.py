@@ -1,44 +1,30 @@
-from traceback import print_tb
 from game import Game
-import os
+from game import *
 
-class Interface():
+
     
-    def juego(self):
-        self.cuantroenlinea = Game()
+def play():
+    juego = Game()
+    juego.crear_tablero()
+    try:
         while True:
-            os.system("cls")
-            self.mostrarTablero()
-            self.obtenerJugador()
-    
-    def mostrarTablero(self):
-        tablero = ''
-        for fila in self.cuantroenlinea.tablero:
-            for indice, columna in enumerate(fila):
-                tablero += str(columna) + " - "
-                if indice == 7:
-                    tablero = tablero[:-3]
-                    tablero += "\n"
-        print(tablero)
+            juego.printTab()
+            juego.crear_turno()
+            op = int(input('Donde desea poner su ficha?? 1 - 7: '))
+            juego.colocar_ficha(op)
+            if juego.ganador != None:
+                juego.printTab()
+                juego.Has_ganado()
+                return again()
+    except Exception as e:
+            print(f'Error!: {e}')   
 
-    def obtenerJugador(self):
-        turno = self.cuantroenlinea.definir_turnos()
-        columna = int(input(f"Elija una columna!\nTurno del jugador {turno}:"))
-        self.cuantroenlinea.calcular_posicion(columna-1)
-        ganador = self.cuantroenlinea.analizar()
-        if ganador == 3:
-            os.system("cls")
-            self.mostrarTablero()
-            print("EMPATE!")
-            exit()
-        if ganador != 0:
-            os.system("cls")
-            self.mostrarTablero()
-            print(f"Gano el jugador {ganador}")
-            exit()
-        #posicion = self.cuantroenlinea.
-        # llamar a la funcion donde coloca el numero y pasarle como parametro "columna"
-        # esa funcion tiene que llevar el numero hasta abajo
+def again():
+    eleccion = input("Revancha? [s/n] ")
+    if eleccion == "s":
+        play()
+    elif eleccion == "n":
+                return False
 
-    def inicio(self):
-        self.juego()
+if __name__=='__main__':
+    play()   
